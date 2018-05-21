@@ -2,7 +2,10 @@ package de.wesemann.es
 
 import java.io.File
 
-fun getLines(file: File): Int {
+/**
+ * returns the number of total lines
+ */
+fun getTotalLines(file: File): Int {
     val reader = file.reader()
 
     var currentLine = 0
@@ -13,12 +16,17 @@ fun getLines(file: File): Int {
     return currentLine
 }
 
-
+/**
+ * append the words on a file
+ */
 fun appendWordChunks(words: List<Int>, fileName: String) {
     val allWords = createFileText(words)
     File("${System.getProperty("java.io.tmpdir")}/$fileName").appendText(allWords)
 }
 
+/**
+ * write the words into the file
+ */
 fun writeWordChunks(words: List<Int>, fileName: String) {
     val allWords = createFileText(words)
     File("${System.getProperty("java.io.tmpdir")}/$fileName").writeText(allWords)
@@ -40,8 +48,14 @@ private fun createFileText(words: List<Int>): String {
     return allWords
 }
 
-fun readLineAndReturnWords(file: File, line: Int): List<Int>{
+/**
+ * reads the @line of the given file and return the words as a list of integer where the coma is the delimiter
+ */
+fun readLineAndReturnWords(file: File, line: Int): List<Int> {
     val lineRead = file.reader().readLines()[line].split(",").map { it.toInt() }
     println("READ ${file.name} line $line: $lineRead")
     return lineRead
 }
+
+
+fun readTmpFile(fileName: String) = File("${System.getProperty("java.io.tmpdir")}/$fileName")
